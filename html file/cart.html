@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Bag | Collection</title>
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --accent: #ffcc00;
+            --text-gray: #b3b3b3;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: white;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+        h1 { font-size: 2.5rem; margin-bottom: 40px; font-family: 'Serif', serif; }
+
+        .cart-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+
+        /* Product Section */
+        .cart-item {
+            display: flex;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 25px;
+        }
+
+        .item-info { flex-grow: 1; }
+        .item-info h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+        .item-price { color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+
+        .qty-btns { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .qty-btns button {
+            background: #333;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-link {
+            color: #ff4444;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        /* Order Summary */
+        .summary-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            height: fit-content;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .total-row {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--accent);
+            color: black;
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        #empty-msg { text-align: center; display: none; padding: 100px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="empty-msg">
+        <h2>Your bag is empty</h2>
+        <p><a href="/" style="color: var(--accent);">Continue Shopping</a></p>
+    </div>
+
+    <div id="cart-content">
+        <h1>Your Shopping Bag</h1>
+        <div class="cart-grid">
+            <div id="items-list">
+                </div>
+
+            <div class="summary-card">
+                <h2>Order Details</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal-val">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span style="color: #44ff44;">Calculated at next step</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span id="total-val">$0</span>
+                </div>
+                <button class="checkout-btn" id="proceed-btn">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Helper to find the right storage key
+    function getStorageKey() {
+        const user = localStorage.getItem('currentUser');
+        return user ? `${user}_cart` : 'cart';
+    }
+
+    function renderCart() {
+        const key = getStorageKey();
+        const cart = JSON.parse(localStorage.getItem(key)) || [];
+        const listDiv = document.getElementById('items-list');
+        const emptyMsg = document.getElementById('empty-msg');
+        const contentDiv = document.getElementById('cart-content');
+
+        if (cart.length === 0) {
+            emptyMsg.style.display = 'block';
+            contentDiv.style.display = 'none';
+            return;
+        }
+
+        listDiv.innerHTML = '';
+        let grandTotal = 0;
+
+        cart.forEach((item, index) => {
+            grandTotal += (parseFloat(item.price) * item.quantity);
+            listDiv.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.image}">
+                    <div class="item-info">
+                        <h3>${item.name}</h3>
+                        <p class="item-price">$${item.price}</p>
+                        <div class="qty-btns">
+                            <button onclick="updateQty(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQty(${index}, 1)">+</button>
+                        </div>
+                        <div class="remove-link" onclick="deleteItem(${index})">Remove</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        document.getElementById('subtotal-val').innerText = '$' + grandTotal.toLocaleString();
+        document.getElementById('total-val').innerText = '$' + grandTotal.toLocaleString();
+    }
+
+    window.updateQty = (index, change) => {
+        const key = getStorageKey();
+        let cart = JSON.parse(localStorage.getItem(key));
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;
+            localStorage.setItem(key, JSON.stringify(cart));
+            renderCart();
+        }
+    };
+
+    window.deleteItem = (index) => {
+        const key = getStorageKey();
+        let cart = JSON.parse(localStorage.getItem(key));
+        cart.splice(index, 1);
+        localStorage.setItem(key, JSON.stringify(cart));
+        renderCart();
+    };
+
+    // Correct Checkout Logic
+    document.getElementById('proceed-btn').addEventListener('click', () => {
+        const user = localStorage.getItem('currentUser');
+        const key = getStorageKey();
+        const cart = JSON.parse(localStorage.getItem(key)) || [];
+
+        if (cart.length === 0) {
+            alert("System cannot find any items in your bag.");
+            return;
+        }
+
+        const total = document.getElementById('total-val').innerText;
+        alert(`Order confirmed for ${user || 'Guest'}. Total: ${total}`);
+        
+        localStorage.removeItem(key);
+        window.location.href = '/';
+    });
+
+    renderCart();
+</script>
+</body>
+</html>

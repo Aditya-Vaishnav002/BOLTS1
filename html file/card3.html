@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethnic Collection - Bolts</title>
+    <style>
+        /* General Styles for All Pages */
+
+        html {
+    scroll-behavior: smooth;
+}
+        :root {
+            --dark-bg: #1e1e1e;
+            --text-color: #f5f5f5;
+            --accent-color: #ff6f61; /* Vibrant Coral/Red for Festive Ethnic Feel */
+            --light-text: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: #0d0d0d;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 65vh; /* Slightly taller hero for dramatic effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Using a strong filter to make the text pop against traditional patterns */
+            filter: brightness(50%) contrast(120%) saturate(150%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5em; /* Larger, more celebratory font */
+            margin-bottom: 15px;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.6em;
+            color: var(--light-text);
+            font-weight: 300;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: #0d0d0d;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 111, 97, 0.4);
+        }
+
+        .shop-btn:hover {
+            background-color: #e55e50;
+            transform: scale(1.02);
+        }
+
+        /* Product Grid Section */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 50px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(255, 111, 97, 0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 400px; /* Slightly larger image area for detail */
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 18px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+            color: white;
+        }
+
+        .product-info p {
+            margin: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                height: 45vh;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .hero-content p {
+                font-size: 1.2em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .product-card img {
+                height: 300px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0d0d0d;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            color: var(--light-text);
+            border-top: 1px solid #333;
+        }
+       /* ===== PRODUCT ACTIONS ===== */
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  align-items: center;
+}
+
+/* COMMON BUTTON BASE */
+.product-actions button {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* 🛒 ADD TO CART */
+.add-cart-btn {
+  flex: 1;
+  background: transparent;
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+.add-cart-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ⚡ BUY NOW (PRIMARY) */
+.buy-now-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #3aa0ff, #2563eb);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+}
+
+.buy-now-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.45);
+}
+
+/* ❤️ WISHLIST */
+.wishlist-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.wishlist-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ACTIVE (LIKED) STATE */
+.wishlist-btn.active {
+  color: #ff4d6d;
+  background: rgba(255, 77, 109, 0.15);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">BOLTS</a>
+        <nav>
+            <a href="bolts.html">Home</a>
+            <a href="card2.html">Men casual</a>
+            <a href="card.html">Women casual</a>
+            <a href="ethnic_ware.html" style="color: var(--accent-color);">Ethnic</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <!-- IMPORTANT: Replace this placeholder with a wide-shot image of models in rich, colorful ethnic wear. Suggested Ratio: 16:9 or 21:9 -->
+            <img src="../image/240_F_640143291_kvoc9eiNU3XdZXNR2EkLPj0PW2PcJxpz.jpg" alt="Ethnic Ware Hero Image" class="hero-bg">
+            <div class="hero-content">
+                <h1>Celebrate the Tradition</h1>
+                <p>Rich fabrics, timeless designs. Upto 40% OFF!</p>
+                <a href="#products" class="shop-btn">EXPLORE HANDLOOM</a>
+            </div>
+        </section>
+
+        <div class="container" id="products">
+            <h2 class="section-title">Exquisite Traditional Wear</h2>
+            <div class="product-grid">
+                <!-- Product Card 1: Elegant Saree. Replace src with your image -->
+                <div class="product-card"
+                data-id="301"
+                data-name="Hand-Woven Art Silk Saree"
+                data-price="129.00">
+                    <img src="../image/woven-art-silk-saree-in-blue-v1-spf13662.webp" alt="Art Silk Saree">
+                    <div class="product-info">
+                        <h3>Hand-Woven Art Silk Saree</h3>
+                        <p>$129.00 <span style="text-decoration: line-through; color:#999; font-size: 0.9em;">$215</span></p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2: Men's Kurta. Replace src with your image -->
+                <div class="product-card"
+                data-id="302"
+                data-name="Embroidered Cotton Kurta Set"
+                data-price="75.99">
+                    <img src="../image/LKS22123920_5.webp" alt="Embroidered Kurta Set">
+                    <div class="product-info">
+                        <h3>Embroidered Cotton Kurta Set</h3>
+                        <p>$75.99</p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3: Designer Lehenga. Replace src with your image -->
+                <div class="product-card"
+                data-id="303"
+                data-name="Heavily Detailed Bridal Lehenga"
+                data-price="450.00">
+                    <img src="../image/heavy-bridal-lehenga-1000x1000.jpeg" alt="Bridal Lehenga">
+                    <div class="product-info">
+                        <h3>Heavily Detailed Bridal Lehenga</h3>
+                        <p>$450.00</p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 4: Bandi Jacket. Replace src with your image -->
+                <div class="product-card"
+                data-id="304"
+                data-name="Nehru Bandi Jacket (Velvet)"
+                data-price="99.00">
+                    <img src="../image/F24M10B_Maroon_1.jpg" alt="Jacket">
+                    <div class="product-info">
+                        <h3>Nehru Bandi Jacket (Velvet)</h3>
+                        <p>$99.00 <span style="text-decoration: line-through; color:#999; font-size: 0.9em;">$165</span></p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+                
+                <!-- Add more ethnic product cards here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 [bolts]. All rights reserved. | Style: Traditional & Festive</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

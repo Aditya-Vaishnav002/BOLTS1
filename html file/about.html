@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Bolts</title>
+    
+    <style>
+        /* ========================================
+        CSS STYLES
+        ========================================
+        */
+        
+        /* --- Global Styles & Reset --- */
+html {
+    scroll-behavior: smooth;
+}
+
+
+        *{
+            background-color: #333;
+            color: #f8f8f8;
+        }
+        .about-us-page {
+            max-width: 1200px; /* Ensures the page content centers and has max width */
+            margin: 0 auto;
+            font-family: 'Arial', sans-serif; /* Use your brand's font here */
+            color: #333; /* Dark gray text */
+            line-height: 1.6;
+        }
+
+        .content-container {
+            padding: 40px 20px; /* Padding for mobile view */
+        }
+
+        /* --- 1. HERO SECTION --- */
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-height: 450px; /* Set a max height for the image */
+            overflow: hidden;
+        }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the area without distortion */
+        }
+
+        /* --- 2. TYPOGRAPHY --- */
+        .main-heading {
+            font-size: 2.5em; /* Large, impactful heading */
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fffefe;
+        }
+
+        .sub-heading {
+            font-size: 1.8em;
+            font-weight: 500;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .intro-paragraph {
+            font-size: 1.15em;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* --- 3. PILLARS SECTION --- */
+        .pillars-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .pillar {
+            flex-basis: calc(33.33% - 20px); /* Creates 3 equal columns */
+        }
+
+        .pillar h3 {
+            font-size: 1.3em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            font-size: 2.5em; /* Size of your custom icon or emoji */
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- 4. CALL TO ACTION SECTION --- */
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px 20px;
+            background-color: #f8f8f8; /* Light gray background to make it stand out */
+            border-radius: 5px;
+        }
+
+        .cta-buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 25px;
+            margin: 10px;
+            display: inline-block;
+            border-radius: 0; /* Modern fashion often uses sharp edges */
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid;
+        }
+
+        .primary-btn {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .primary-btn:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        .secondary-btn {
+            background-color: transparent;
+            color: #000;
+            border-color: #000;
+        }
+
+        .secondary-btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* --- Responsive Design for smaller screens --- */
+        @media (max-width: 768px) {
+            .pillars-container {
+                flex-direction: column; /* Stacks the pillars vertically on mobile */
+                gap: 20px;
+            }
+            .main-heading {
+                font-size: 2em;
+            }
+            .content-container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="about-us-page">
+        
+      
+
+        <div class="content-container">
+            <h1 class="main-heading">Our Story: Style Without Limits</h1>
+
+            <p class="intro-paragraph">
+                At <strong>[bolts]</strong>, we believe that true style isn't about following rules—it's about finding your confidence. We started this journey in **[2025/parbhani]** with a simple frustration: seeing incredible trends that didn't feel wearable, accessible, or personal. Our solution was to build a place where **high-end aesthetics** meet **everyday practicality**.
+            </p>
+            
+            <p style="text-align: center;">
+                We curate and design fashion that allows you to express your dynamic, evolving self, without compromising on quality or your budget.
+            </p>
+
+            <h2 class="sub-heading">The BOLT Difference</h2>
+
+            <div class="pillars-container">
+                
+                <div class="pillar">
+                    <span class="icon">💎</span>
+                    <h3>Curated Quality</h3>
+                    <p>We obsess over **fabric, fit, and finish**. We work directly with our designers/makers to ensure every stitch, hem, and detail meets a standard that allows your favorite pieces to last beyond the season.</p>
+                </div>
+                
+                <div class="pillar">
+                    <span class="icon">✨</span>
+                    <h3>Effortless Style</h3>
+                    <p>Our collections are designed to be **mix-and-match**. We focus on versatile staples and bold accents that can take you from the office boardroom to a weekend brunch with a simple change of accessories.</p>
+                </div>
+                
+                <div class="pillar">
+                    <span class="icon">💖</span>
+                    <h3>Real Life, Real You</h3>
+                    <p>We champion inclusivity and offer comprehensive sizing information so you can shop with confidence, knowing the fit will be as great as the look.</p>
+                </div>
+
+            </div>

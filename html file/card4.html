@@ -1,0 +1,376 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Sports Ware - Bolts</title>
+    <style>
+  html {
+    scroll-behavior: smooth;
+}
+
+        /* General Styles for All Pages */
+        :root {
+            --dark-bg: #1e1e1e;
+            --text-color: #f5f5f5;
+            --accent-color: #8bc34a; /* High-energy, sporty Green */
+            --light-text: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: #0d0d0d;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 65vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Filter for high contrast to make text pop */
+            filter: brightness(55%) contrast(110%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5em;
+            margin-bottom: 15px;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-content p {
+            font-size: 1.6em;
+            color: var(--light-text);
+            font-weight: 300;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: #0d0d0d;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(139, 195, 74, 0.5); /* Shadow matching accent */
+        }
+
+        .shop-btn:hover {
+            background-color: #7cb342;
+            transform: scale(1.02);
+        }
+
+        /* Product Grid Section */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 50px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.3); /* Shadow matching accent */
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 18px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+            color: white;
+        }
+
+        .product-info p {
+            margin: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                height: 45vh;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .hero-content p {
+                font-size: 1.2em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .product-card img {
+                height: 300px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0d0d0d;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            color: var(--light-text);
+            border-top: 1px solid #333;
+        }
+               /* ===== PRODUCT ACTIONS ===== */
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  align-items: center;
+}
+
+/* COMMON BUTTON BASE */
+.product-actions button {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* 🛒 ADD TO CART */
+.add-cart-btn {
+  flex: 1;
+  background: transparent;
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+.add-cart-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ⚡ BUY NOW (PRIMARY) */
+.buy-now-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #3aa0ff, #2563eb);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+}
+
+.buy-now-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.45);
+}
+
+/* ❤️ WISHLIST */
+.wishlist-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.wishlist-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ACTIVE (LIKED) STATE */
+.wishlist-btn.active {
+  color: #ff4d6d;
+  background: rgba(255, 77, 109, 0.15);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">BOLTS</a>
+        <nav>
+            <a href="bolts.html">Home</a>
+            <a href="card2.html">Men</a>
+            <a href="card5.html">Women</a>
+            <a href="mens_sportswear.html" style="color: var(--accent-color);">Sports</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <!-- IMPORTANT: Replace this placeholder with a wide-shot image of a male athlete or model in activewear. Suggested Ratio: 16:9 or 21:9 -->
+            <img src="../image/6YkF53gwGxSnYZvsxCDhmH-1024-80.jpg.webp" alt="Men's Activewear Hero Image" class="hero-bg">
+            <div class="hero-content">
+                <h1>Performance & Power</h1>
+                <p>Engineered gear for peak performance. Upto 60% OFF!</p>
+                <a href="#products" class="shop-btn">SHOP TRAINING ESSENTIALS</a>
+            </div>
+        </section>
+
+        <div class="container" id="products">
+            <h2 class="section-title">High-Performance Training Gear</h2>
+            <div class="product-grid">
+                <!-- Product Card 1: Running Shorts. Replace src with your image -->
+                <div class="product-card"
+                data-id="401"
+                data-name="Lightweight 5 Inch Running Shorts"
+                data-price="35.00">
+                    <img src="../image/61IEJaQrYyL._AC_SL500_.jpg" alt="Men's Running Shorts">
+                    <div class="product-info">
+                        <h3>Lightweight 5" Running Shorts</h3>
+                        <p>$35.00</p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2: Compression Tee. Replace src with your image -->
+                <div class="product-card"
+                data-id="402"
+                data-name="Seamless Compression Tee"
+                data-price="49.99">
+                    <img src="../image/GeoSeamlessLongSleeveT-ShirtCoreOlive-DeepOliveGreenA5A2C-ECDL-0968_1664x.webp" alt="Compression T-Shirt">
+                    <div class="product-info">
+                        <h3>Seamless Compression Tee</h3>
+                        <p>$49.99 <span style="text-decoration: line-through; color:#999; font-size: 0.9em;">$79</span></p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3: Joggers. Replace src with your image -->
+                <div class="product-card"
+                data-id="403"
+                data-name="Tech Fleece Training Joggers"
+                data-price="65.00">
+                    <img src="../image/4110505.avif" alt="Men's Training Joggers">
+                    <div class="product-info">
+                        <h3>Tech Fleece Training Joggers</h3>
+                        <p>$65.00</p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 4: Sneakers. Replace src with your image -->
+                <div class="product-card"
+                data-id="404"
+                data-name="Aero-Vent Running Sneakers"
+                data-price="119.00">
+                    <img src="../image/W+NIKE+PEGASUS+PREMIUM.avif" alt="High-Performance Runners">
+                    <div class="product-info">
+                        <h3>Aero-Vent Running Sneakers</h3>
+                        <p>$119.00</p>
+                        <button class="wishlist-btn">❤️</button>
+                        <button class="add-cart-btn">Add To Cart🛒</button>
+                        <button class="buy-now-btn">BUY NOW</button>
+                    </div>
+                </div>
+                
+                <!-- Add more sportswear product cards here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 [bolts]. All rights reserved. | Style: Performance & Active</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
