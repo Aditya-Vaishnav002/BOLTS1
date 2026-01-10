@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../html file')));
+app.use(express.static(path.join(__dirname, '../html')));
 app.use("/image", express.static(path.join(__dirname, "../image")));
 app.use(express.urlencoded({ extended: true }));
 require('dotenv').config();
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     password: String
 });
 app.get("/signup", (req, res) => {
-    res.sendFile(path.join(__dirname, '../html file/signup.html'));
+    res.sendFile(path.join(__dirname, '../html/signup.html'));
 });
 const User = mongoose.model('User', userSchema);
 app.post("/signup", async (req, res) => {
@@ -35,16 +35,16 @@ app.post("/signup", async (req, res) => {
   await user.save();
 
   app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, '../html file/index.html'));
+    res.sendFile(path.join(__dirname, '../html/index.html'));
   });
 
   res.redirect("/login");
 });
 app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, '../html file/login.html'));
+    res.sendFile(path.join(__dirname, '../html/login.html'));
 });
 app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, '../html file/index.html'));
+    res.sendFile(path.join(__dirname, '../html/index.html'));
   });
 
   app.post("/login", async (req, res) => {
