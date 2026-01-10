@@ -35,7 +35,7 @@ app.post("/signup", async (req, res) => {
   await user.save();
 
   app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, '../html file/bolts.html'));
+    res.sendFile(path.join(__dirname, '../html file/index.html'));
   });
 
   res.redirect("/login");
@@ -44,7 +44,7 @@ app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, '../html file/login.html'));
 });
 app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, '../html file/bolts.html'));
+    res.sendFile(path.join(__dirname, '../html file/index.html'));
   });
 
   app.post("/login", async (req, res) => {
