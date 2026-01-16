@@ -3,193 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist | Ethnic Collection</title>
+    <title>My Wishlist | BOLTS</title>
+    <link rel="stylesheet" href="bolts.css">
     <style>
-        :root {
-            --bg: #0b0b0b;
-            --card: #161616;
-            --gold: #d4af37;
-            --text: #ffffff;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 40px;
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .header-section h1 {
-            font-size: 3rem;
-            letter-spacing: 2px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Wishlist Grid */
-        .wishlist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .wish-card {
-            background: var(--card);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .wish-card:hover { transform: translateY(-10px); }
-
-        .wish-card img {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-        }
-
-        .wish-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .wish-info h3 { margin: 0 0 10px 0; font-weight: 400; }
-        .wish-price { color: var(--gold); font-size: 1.2rem; margin-bottom: 20px; }
-
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .add-to-bag {
-            background: var(--gold);
-            color: black;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .remove-wish {
-            background: transparent;
-            color: #ff4444;
-            border: 1px solid #ff4444;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        #empty-state {
-            text-align: center;
-            display: none;
-            padding: 100px 0;
-        }
+        body { background-color: #0f0f0f; color: white; font-family: sans-serif; padding: 20px; }
+        .wishlist-container { max-width: 1200px; margin: 0 auto; }
+        .wishlist-header { border-bottom: 2px solid #ffcc00; padding-bottom: 10px; margin-bottom: 30px; }
+        
+        .wishlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        
+        .wish-card { background: #1a1a1a; border-radius: 10px; overflow: hidden; padding-bottom: 15px; text-align: center; }
+        .wish-card img { width: 100%; height: 300px; object-fit: cover; }
+        .wish-card h3 { font-size: 1.1rem; margin: 15px 0 5px; }
+        .wish-card .price { color: #ffcc00; font-weight: bold; margin-bottom: 15px; }
+        
+        .btn-group { display: flex; flex-direction: column; gap: 10px; padding: 0 15px; }
+        .move-btn { background: #ffcc00; color: black; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .remove-btn { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 8px; border-radius: 5px; cursor: pointer; }
+        
+        #empty-view { text-align: center; display: none; padding: 100px 0; }
     </style>
 </head>
 <body>
 
-    <div class="header-section">
-        <h1>My Wishlist</h1>
-        <p>Your curated collection of elegance</p>
-    </div>
-
-    <div id="empty-state">
-        <h3>Your wishlist is currently empty.</h3>
-        <a href="/index.html" style="color: var(--gold); text-decoration: none;">Explore Collection</a>
-    </div>
-
-    <div class="wishlist-grid" id="wishlist-container">
+    <div class="wishlist-container">
+        <div class="wishlist-header">
+            <h1>My Wishlist</h1>
         </div>
 
+        <div id="empty-view">
+            <h2>Your wishlist is empty</h2>
+            <p><a href="index.html" style="color: #ffcc00;">Explore Collections</a></p>
+        </div>
+
+        <div class="wishlist-grid" id="wishlist-display">
+            </div>
+    </div>
+
     <script>
-        function getWishlistKey() {
+        // Use the storage logic compatible with your main.js
+        function getKeys() {
             const user = localStorage.getItem('currentUser');
-            return user ? `${user}_wishlist` : null;
+            return {
+                wishKey: user ? `${user}_wishlist` : 'wishlist',
+                cartKey: user ? `${user}_cart` : 'cart'
+            };
         }
 
-        function renderWishlist() {
-            const key = getWishlistKey();
-            const container = document.getElementById('wishlist-container');
-            const emptyState = document.getElementById('empty-state');
+        function displayWishlist() {
+            const { wishKey } = getKeys();
+            const wishlist = JSON.parse(localStorage.getItem(wishKey)) || [];
+            const display = document.getElementById('wishlist-display');
+            const emptyView = document.getElementById('empty-view');
 
-            if (!key) {
-                window.location.href = '/login';
+            if (wishlist.length === 0) {
+                emptyView.style.display = 'block';
+                display.style.display = 'none';
                 return;
             }
 
-            const items = JSON.parse(localStorage.getItem(key)) || [];
+            emptyView.style.display = 'none';
+            display.style.display = 'grid';
+            display.innerHTML = '';
 
-            if (items.length === 0) {
-                emptyState.style.display = 'block';
-                container.style.display = 'none';
-                return;
-            }
-
-            emptyState.style.display = 'none';
-            container.style.display = 'grid';
-            container.innerHTML = '';
-
-            items.forEach((item, index) => {
-                container.innerHTML += `
+            wishlist.forEach((item, index) => {
+                display.innerHTML += `
                     <div class="wish-card">
                         <img src="${item.image}" alt="${item.name}">
-                        <div class="wish-info">
-                            <h3>${item.name}</h3>
-                            <div class="wish-price">$${item.price}</div>
-                            <div class="btn-container">
-                                <button class="add-to-bag" onclick="moveItemToCart(${index})">Move to Bag</button>
-                                <button class="remove-wish" onclick="removeWishItem(${index})">Remove</button>
-                            </div>
+                        <h3>${item.name}</h3>
+                        <p class="price">$${item.price}</p>
+                        <div class="btn-group">
+                            <button class="move-btn" onclick="moveToCart(${index})">Move to Bag</button>
+                            <button class="remove-btn" onclick="removeFromWishlist(${index})">Remove</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        window.removeWishItem = (index) => {
-            const key = getWishlistKey();
-            let items = JSON.parse(localStorage.getItem(key));
-            items.splice(index, 1);
-            localStorage.setItem(key, JSON.stringify(items));
-            renderWishlist();
+        window.removeFromWishlist = (index) => {
+            const { wishKey } = getKeys();
+            let wishlist = JSON.parse(localStorage.getItem(wishKey));
+            wishlist.splice(index, 1);
+            localStorage.setItem(wishKey, JSON.stringify(wishlist));
+            displayWishlist();
         };
 
-        window.moveItemToCart = (index) => {
-            const user = localStorage.getItem('currentUser');
-            const wishKey = `${user}_wishlist`;
-            const cartKey = `${user}_cart`;
-
+        window.moveToCart = (index) => {
+            const { wishKey, cartKey } = getKeys();
             let wishlist = JSON.parse(localStorage.getItem(wishKey));
             let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
+            // Move item
             const item = wishlist[index];
-            item.quantity = 1; // Add quantity for cart
+            item.quantity = 1; // Add default quantity for cart
+            
+            // Check for duplicates in cart
+            const existing = cart.find(c => c.id === item.id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push(item);
+            }
 
-            // Add to cart
-            cart.push(item);
+            // Save updates
             localStorage.setItem(cartKey, JSON.stringify(cart));
-
-            // Remove from wishlist
             wishlist.splice(index, 1);
             localStorage.setItem(wishKey, JSON.stringify(wishlist));
 
-            alert("Item moved to your bag!");
-            renderWishlist();
+            alert(`${item.name} moved to your shopping bag!`);
+            displayWishlist();
         };
 
-        renderWishlist();
+        // Initialize display
+        displayWishlist();
     </script>
 </body>
 </html>

@@ -3,71 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Shopping Bag | Collection</title>
+    <title>Your Shopping Bag | BOLTS</title>
+    <link rel="stylesheet" href="bolts.css">
     <style>
         :root {
-            --bg-color: #0f0f0f;
+            --bolts-yellow: #ffcc00;
+            --dark-bg: #0f0f0f;
             --card-bg: #1a1a1a;
-            --accent: #ffcc00;
-            --text-gray: #b3b3b3;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--dark-bg);
             color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 40px;
-        }
-
-        .container { max-width: 1100px; margin: 0 auto; }
-        h1 { font-size: 2.5rem; margin-bottom: 40px; font-family: 'Serif', serif; }
-
-        .cart-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
-
-        /* Product Section */
-        .cart-item {
-            display: flex;
-            background: var(--card-bg);
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            align-items: center;
         }
 
-        .cart-item img {
+        .cart-page-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        h1 {
+            grid-column: 1 / -1;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Product List Section */
+        .cart-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-item-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            display: flex;
+            padding: 20px;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-item-card img {
             width: 120px;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
             border-radius: 8px;
-            margin-right: 25px;
         }
 
-        .item-info { flex-grow: 1; }
-        .item-info h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
-        .item-price { color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+        .item-details {
+            flex-grow: 1;
+        }
 
-        .qty-btns { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
-        .qty-btns button {
+        .item-details h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #efefef;
+        }
+
+        .price-tag {
+            color: var(--bolts-yellow);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Quantity Controls */
+        .qty-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             background: #333;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
+            width: fit-content;
+            padding: 5px 10px;
             border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .qty-box button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
             cursor: pointer;
         }
 
         .remove-link {
-            color: #ff4444;
-            text-decoration: none;
+            color: #888;
             font-size: 0.8rem;
             text-transform: uppercase;
             cursor: pointer;
+            text-decoration: underline;
         }
 
-        /* Order Summary */
-        .summary-card {
+        /* Summary Sidebar */
+        .order-summary {
             background: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
@@ -77,21 +114,22 @@
         .summary-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
-            color: var(--text-gray);
+            margin-bottom: 15px;
+            color: #bbb;
         }
 
         .total-row {
-            border-top: 1px solid #333;
+            border-top: 1px solid #444;
             padding-top: 20px;
-            color: white;
+            margin-top: 20px;
             font-size: 1.4rem;
             font-weight: bold;
+            color: white;
         }
 
         .checkout-btn {
             width: 100%;
-            background: var(--accent);
+            background: var(--bolts-yellow);
             color: black;
             border: none;
             padding: 18px;
@@ -99,126 +137,132 @@
             font-weight: bold;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 20px;
+            transition: 0.3s;
         }
 
-        #empty-msg { text-align: center; display: none; padding: 100px 0; }
+        .checkout-btn:hover {
+            background: #e6b800;
+        }
+
+        #empty-cart-msg {
+            text-align: center;
+            padding: 100px 0;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="empty-msg">
-        <h2>Your bag is empty</h2>
-        <p><a href="/index.html" style="color: var(--accent);">Continue Shopping</a></p>
+<div class="cart-page-container">
+    <h1>Your Shopping Bag</h1>
+
+    <div id="empty-cart-msg">
+        <h2>Your bag is currently empty.</h2>
+        <a href="index.html" style="color: var(--bolts-yellow);">Continue Shopping</a>
     </div>
 
-    <div id="cart-content">
-        <h1>Your Shopping Bag</h1>
-        <div class="cart-grid">
-            <div id="items-list">
-                </div>
-
-            <div class="summary-card">
-                <h2>Order Details</h2>
-                <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span id="subtotal-val">$0</span>
-                </div>
-                <div class="summary-row">
-                    <span>Shipping</span>
-                    <span style="color: #44ff44;">Calculated at next step</span>
-                </div>
-                <div class="summary-row total-row">
-                    <span>Total</span>
-                    <span id="total-val">$0</span>
-                </div>
-                <button class="checkout-btn" id="proceed-btn">PROCEED TO CHECKOUT</button>
-            </div>
+    <div class="cart-items-list" id="cart-items-container">
         </div>
+
+    <div class="order-summary" id="summary-panel">
+        <h2 style="margin-top: 0;">Order Details</h2>
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal-amount">$0</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span style="color: #4CAF50;">FREE</span>
+        </div>
+        <div class="summary-row total-row">
+            <span>Total</span>
+            <span id="total-amount">$0</span>
+        </div>
+        <button class="checkout-btn" id="pay-btn">PROCEED TO PAY</button>
     </div>
 </div>
 
 <script>
-    // Helper to find the right storage key
-    function getStorageKey() {
+    // Load data from user-specific key
+    function getCartKey() {
         const user = localStorage.getItem('currentUser');
         return user ? `${user}_cart` : 'cart';
     }
 
     function renderCart() {
-        const key = getStorageKey();
+        const key = getCartKey();
         const cart = JSON.parse(localStorage.getItem(key)) || [];
-        const listDiv = document.getElementById('items-list');
-        const emptyMsg = document.getElementById('empty-msg');
-        const contentDiv = document.getElementById('cart-content');
+        const container = document.getElementById('cart-items-container');
+        const emptyMsg = document.getElementById('empty-cart-msg');
+        const summary = document.getElementById('summary-panel');
 
         if (cart.length === 0) {
             emptyMsg.style.display = 'block';
-            contentDiv.style.display = 'none';
+            container.style.display = 'none';
+            summary.style.display = 'none';
             return;
         }
 
-        listDiv.innerHTML = '';
-        let grandTotal = 0;
+        emptyMsg.style.display = 'none';
+        container.innerHTML = '';
+        let total = 0;
 
         cart.forEach((item, index) => {
-            grandTotal += (parseFloat(item.price) * item.quantity);
-            listDiv.innerHTML += `
-                <div class="cart-item">
-                    <img src="${item.image}">
-                    <div class="item-info">
+            total += (item.price * item.quantity);
+            container.innerHTML += `
+                <div class="cart-item-card">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
                         <h3>${item.name}</h3>
-                        <p class="item-price">$${item.price}</p>
-                        <div class="qty-btns">
-                            <button onclick="updateQty(${index}, -1)">-</button>
+                        <p class="price-tag">$${item.price}</p>
+                        <div class="qty-box">
+                            <button onclick="changeQuantity(${index}, -1)">-</button>
                             <span>${item.quantity}</span>
-                            <button onclick="updateQty(${index}, 1)">+</button>
+                            <button onclick="changeQuantity(${index}, 1)">+</button>
                         </div>
-                        <div class="remove-link" onclick="deleteItem(${index})">Remove</div>
+                        <span class="remove-link" onclick="removeItem(${index})">Remove from bag</span>
                     </div>
                 </div>
             `;
         });
 
-        document.getElementById('subtotal-val').innerText = '$' + grandTotal.toLocaleString();
-        document.getElementById('total-val').innerText = '$' + grandTotal.toLocaleString();
+        document.getElementById('subtotal-amount').innerText = '$' + total.toLocaleString();
+        document.getElementById('total-amount').innerText = '$' + total.toLocaleString();
     }
 
-    window.updateQty = (index, change) => {
-        const key = getStorageKey();
+    window.changeQuantity = (index, delta) => {
+        const key = getCartKey();
         let cart = JSON.parse(localStorage.getItem(key));
-        if (cart[index].quantity + change > 0) {
-            cart[index].quantity += change;
+        if (cart[index].quantity + delta > 0) {
+            cart[index].quantity += delta;
             localStorage.setItem(key, JSON.stringify(cart));
             renderCart();
         }
     };
 
-    window.deleteItem = (index) => {
-        const key = getStorageKey();
+    window.removeItem = (index) => {
+        const key = getCartKey();
         let cart = JSON.parse(localStorage.getItem(key));
         cart.splice(index, 1);
         localStorage.setItem(key, JSON.stringify(cart));
         renderCart();
     };
 
-    // Correct Checkout Logic
-    document.getElementById('proceed-btn').addEventListener('click', () => {
+    document.getElementById('pay-btn').addEventListener('click', () => {
         const user = localStorage.getItem('currentUser');
-        const key = getStorageKey();
+        const key = getCartKey();
         const cart = JSON.parse(localStorage.getItem(key)) || [];
 
         if (cart.length === 0) {
-            alert("System cannot find any items in your bag.");
+            alert("Bag is empty!"); // Fallback check
             return;
         }
 
-        const total = document.getElementById('total-val').innerText;
-        alert(`Order confirmed for ${user || 'Guest'}. Total: ${total}`);
-        
+        const total = document.getElementById('total-amount').innerText;
+        alert(`Thank you, ${user || 'Guest'}! Your order of ${total} is confirmed.`);
         localStorage.removeItem(key);
-        window.location.href = '/';
+        window.location.href = 'index.html';
     });
 
     renderCart();
