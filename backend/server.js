@@ -65,6 +65,21 @@ if (user.password === password) {
 }
 });
 
+// serve root files (intro + model)
+app.use(express.static(path.join(__dirname, "..")));
+
+// INTRO PAGE (root index.html)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "index.html"));
+});
+
+// MAIN WEBSITE (html/index.html)
+app.get("/home", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "html", "index.html"));
+});
+
+
+
 app.listen(process.env.PORT, () => {   
     console.log(`Server running on port ${process.env.PORT}`);
 });
