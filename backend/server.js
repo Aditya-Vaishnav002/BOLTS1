@@ -1,70 +1,73 @@
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../html')));
-//  Serve PUBLIC images and assets
-app.use('/public', express.static(path.join(__dirname, '../public')));
-app.use(express.urlencoded({ extended: true }));
 require('dotenv').config();
-app.use(express.json());  
-mongoose.connect(process.env.MONGO_URI )
-    .then(() => console.log('MongoDB connected'))  
+
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// STATIC FILES: 
+// Serve files from 'html' but DISABLE automatic index.html serving
+app.use(express.static(path.join(__dirname, '../html'), { index: false }));
+// Serve other public assets if they exist
+app.use(express.static(path.join(__dirname, '../')));
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI || 'your_connection_string')
+    .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
-app.use(express.static(path.join(__dirname, '../public')));
+
+// User Schema
 const userSchema = new mongoose.Schema({
-    email: String,
-    password: String
+    email: { type: String, required: true },
+    password: { type: String, required: true }
 });
+const User = mongoose.model('User', userSchema);
+
+// --- ROUTES ---
+
+// 1. The Intro Page (ROOT)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+// 2. The Main Page (Home)
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, '../html/index.html'));
+});
+
+// 3. Auth Routes
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname, '../html/signup.html'));
 });
-const User = mongoose.model('User', userSchema);
-app.post("/signup", async (req, res) => {
-  const { email, password, confirmPassword } = req.body;
 
-  if (password !== confirmPassword) {
-    return res.send("Passwords do not match");
-  }
-
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    return res.send("User already exists");
-  }
-
-  const user = new User({ email, password });
-  await user.save();
-
-  app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, '../html/index.html'));
-  });
-
-  res.redirect("/login");
-});
 app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, '../html/login.html'));
 });
-app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, '../html/index.html'));
-  });
 
-  app.post("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-// Inside your app.post("/login", ...) 
-if (user.password === password) {
-    // We send a tiny piece of HTML/JS instead of a direct redirect
-    // This forces the browser to save the user's email before moving to the home page
-    return res.send(`
-        <script>
-            localStorage.setItem('currentUser', '${user.email}');
-            alert('Login Successful! Welcome back.');
-            window.location.href = '/'; 
-        </script>
-    `);
-}
+
+    if (user && user.password === password) {
+        return res.send(`
+            <script>
+                localStorage.setItem('currentUser', '${user.email}');
+                alert('Login Successful!');
+                window.location.href = '/home';
+            </script>
+        `);
+    }
+    res.send("Invalid credentials");
 });
 
-app.listen(process.env.PORT, () => {   
-    console.log(`Server running on port ${process.env.PORT}`);
+// Vercel handles the port, but local needs 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
