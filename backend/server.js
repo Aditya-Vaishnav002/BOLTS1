@@ -5,22 +5,21 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
+// --- MIDDLEWARE ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// STATIC FILES: 
-// Serve files from 'html' but DISABLE automatic index.html serving
+// Serve CSS, JS, and Images from the 'html' folder
+// { index: false } prevents the browser from auto-loading html/index.html as the homepage
 app.use(express.static(path.join(__dirname, '../html'), { index: false }));
-// Serve other public assets if they exist
-app.use(express.static(path.join(__dirname, '../')));
+app.use(express.static(path.join(__dirname, '../'))); // Access to root assets
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI || 'your_connection_string')
+// --- DATABASE ---
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+    .catch(err => console.log('MongoDB connection error:', err));
 
-// User Schema
+// --- USER SCHEMA ---
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true }
@@ -29,17 +28,19 @@ const User = mongoose.model('User', userSchema);
 
 // --- ROUTES ---
 
-// 1. The Intro Page (ROOT)
+// 1. THE INTRO PAGE (Root URL: /)
+// This serves the index.html located in your main BOLTS1 folder
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// 2. The Main Page (Home)
+// 2. THE MAIN PAGE (Route: /home)
+// This serves the index.html located inside the html/ folder
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, '../html/index.html'));
 });
 
-// 3. Auth Routes
+// 3. AUTH ROUTES
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname, '../html/signup.html'));
 });
@@ -57,14 +58,14 @@ app.post("/login", async (req, res) => {
             <script>
                 localStorage.setItem('currentUser', '${user.email}');
                 alert('Login Successful!');
-                window.location.href = '/home';
+                window.location.href = '/home'; 
             </script>
         `);
     }
     res.send("Invalid credentials");
 });
 
-// Vercel handles the port, but local needs 3000
+// --- VERCEL EXPORT ---
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
