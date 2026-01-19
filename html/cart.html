@@ -159,7 +159,7 @@
 
     <div id="empty-cart-msg">
         <h2>Your bag is currently empty.</h2>
-        <a href="index.html" style="color: var(--bolts-yellow);">Continue Shopping</a>
+        <a href="home.html" style="color: var(--bolts-yellow);">Continue Shopping</a>
     </div>
 
     <div class="cart-items-list" id="cart-items-container">
@@ -262,7 +262,7 @@
         const total = document.getElementById('total-amount').innerText;
         alert(`Thank you, ${user || 'Guest'}! Your order of ${total} is confirmed.`);
         localStorage.removeItem(key);
-        window.location.href = 'main.html';
+        window.location.href = 'home.html';
     });
 
     renderCart();

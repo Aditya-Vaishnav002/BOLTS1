@@ -116,7 +116,7 @@
 
   <div class="intro">
     <model-viewer
-      src="/dummy/golden+lightning+bolt+3d+model.glb"
+      src="/model/golden+lightning+bolt+3d+model.glb"
       auto-rotate
       rotation-per-second="6deg"
       camera-controls
@@ -136,10 +136,9 @@
     function enterSite() {
       document.body.style.opacity = "0";
       setTimeout(() => {
-        window.location.href = "/home";
+        window.location.href = "/home.html";
       }, 600);
     }
   </script>
-  <script src="../backend/server.js"></script>
 </body>
 </html>

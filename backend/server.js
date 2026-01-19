@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 // 2. THE MAIN PAGE (Route: /home)
 // This serves the index.html located inside the html/ folder
 app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html/main.html'));
+    res.sendFile(path.join(__dirname, '../html/home.html'));
 });
 
 // 3. AUTH ROUTES
