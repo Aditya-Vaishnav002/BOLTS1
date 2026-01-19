@@ -4,6 +4,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+app.use(express.static(path.join(__dirname, '../html')));
 
 // --- MIDDLEWARE ---
 app.use(express.json());
@@ -31,13 +32,12 @@ const User = mongoose.model('User', userSchema);
 // 1. THE INTRO PAGE (Root URL: /)
 // This serves the index.html located in your main BOLTS1 folder
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.sendFile(path.join(__dirname, '..html/index.html'));
 });
-
 // 2. THE MAIN PAGE (Route: /home)
 // This serves the index.html located inside the html/ folder
 app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html/index.html'));
+    res.sendFile(path.join(__dirname, '../html/main.html'));
 });
 
 // 3. AUTH ROUTES
